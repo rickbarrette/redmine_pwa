@@ -1,0 +1,66 @@
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'pwa_upload', 'pwa_share', plugin: :redmine_pwa %>
+<% end %>
+<% html_title l(:label_pwa_share_title) %>
+
+<h2><%= l(:label_pwa_share_title) %></h2>
+
+<% if @missed %>
+  <div class="flash warning"><%= l(:text_pwa_missed) %></div>
+<% end %>
+
+<%= tag.div id: 'pwa-share', class: 'pwa-uploader pwa-share', data: RedminePwa.uploader_data(self) do %>
+  <fieldset class="box">
+    <legend><%= l(:label_pwa_shared_items) %></legend>
+    <ul class="pwa-tray" data-pwa-tray></ul>
+    <p class="pwa-nothing"><%= l(:label_pwa_nothing_shared) %></p>
+    <div class="pwa-pick-buttons">
+      <button type="button" class="pwa-button" data-pwa-pick="camera"><%= sprite_icon('photo', l(:button_pwa_take_photo)) %></button>
+      <button type="button" class="pwa-button" data-pwa-pick="files"><%= sprite_icon('attachment', l(:button_pwa_add_files)) %></button>
+    </div>
+    <input type="file" accept="image/*" capture="environment" data-pwa-input="camera" hidden>
+    <input type="file" multiple data-pwa-input="files" hidden>
+    <label class="pwa-note-label">
+      <%= l(:label_pwa_note) %>
+      <textarea rows="3" data-pwa-note></textarea>
+    </label>
+  </fieldset>
+
+  <div class="pwa-picker" data-search-url="<%= pwa_share_issues_path %>"
+       data-no-results="<%= l(:label_pwa_no_results) %>">
+    <label class="pwa-search-label">
+      <%= l(:label_pwa_search) %>
+      <input type="search" class="pwa-search" autocomplete="off" placeholder="<%= l(:label_pwa_search_placeholder) %>">
+    </label>
+
+    <section class="pwa-results" hidden>
+      <h3><%= l(:label_pwa_results) %></h3>
+      <ul class="pwa-issue-list"></ul>
+    </section>
+
+    <% [[:label_pwa_assigned, @assigned], [:label_pwa_recent, @recent]].each do |label, issues| %>
+      <% next if issues.empty? %>
+      <section>
+        <h3><%= l(label) %></h3>
+        <ul class="pwa-issue-list">
+          <% issues.each do |issue| %>
+            <li>
+              <label>
+                <input type="radio" name="pwa_issue" value="<%= issue.id %>">
+                <span class="pwa-issue-title">#<%= issue.id %> <%= issue.subject %></span>
+                <span class="pwa-issue-meta">
+                  <%= [issue.project.name, issue.status.name, (issue.customer&.name if issue.respond_to?(:customer))].compact.join(' · ') %>
+                </span>
+              </label>
+            </li>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
+  </div>
+
+  <div class="pwa-share-footer">
+    <div data-pwa-status role="status" aria-live="polite"></div>
+    <button type="button" class="pwa-button pwa-submit" data-pwa-submit disabled><%= l(:button_pwa_attach, id: '…') %></button>
+  </div>
+<% end %>

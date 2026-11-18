@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="<%= current_language %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title><%= l(:text_pwa_offline_title) %> · <%= RedminePwa.app_name %></title>
+  <style>
+    :root { --bg: #f8f9fa; --fg: #212529; --muted: #495057; --accent: #3a78a3; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #161b22; --fg: #e6edf3; --muted: #9ea7b3; --accent: #58a6ff; } }
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+           background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    main { max-width: 22rem; padding: 2rem 1rem; text-align: center; }
+    h1 { font-size: 1.4rem; margin: 0 0 .5rem; }
+    p { color: var(--muted); margin: 0 0 1.5rem; }
+    button { font: inherit; padding: .7rem 1.6rem; border: 0; border-radius: 6px; background: var(--accent); color: #fff; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1><%= l(:text_pwa_offline_title) %></h1>
+    <p><%= l(:text_pwa_offline_body) %></p>
+    <button type="button" onclick="location.reload()"><%= l(:button_pwa_retry) %></button>
+  </main>
+</body>
+</html>

@@ -1,0 +1,39 @@
+en:
+  button_pwa_back: Back
+  button_pwa_ok: OK
+  button_pwa_take_photo: Take photo
+  button_pwa_add_files: Add files
+  button_pwa_attach: "Add to #%{id}"
+  button_pwa_retry: Try again
+  label_pwa_install: Install app
+  label_pwa_ios_title: Install on iPhone
+  text_pwa_ios_steps: "In Safari, tap the Share button (the square with an arrow), then Add to Home Screen."
+  label_pwa_my_issues: My issues
+  label_pwa_share_title: Add to an issue
+  label_pwa_shared_items: To add
+  label_pwa_note: Note (optional)
+  label_pwa_search: Find an issue
+  label_pwa_search_placeholder: "Issue number, subject or customer"
+  label_pwa_assigned: Assigned to me
+  label_pwa_recent: Recently updated by me
+  label_pwa_results: Search results
+  label_pwa_no_results: No issues found.
+  label_pwa_nothing_shared: Nothing shared. Add photos or files, or write a note.
+  label_pwa_photos_on_issue: Photos and files
+  label_pwa_uploading: "Uploading %{done} of %{total}…"
+  label_pwa_shrinking: Preparing photos…
+  label_pwa_saving: Saving…
+  label_pwa_remove: Remove
+  text_pwa_missed: "The shared files didn't come through. Open Redmine from its icon once, then share again."
+  text_pwa_too_big: "%{name} is too big (the limit is %{max})."
+  text_pwa_offline_title: You're offline
+  text_pwa_offline_body: Redmine can't be reached right now. Check your connection and try again.
+  error_pwa_no_file: No file was received.
+  error_pwa_nothing_to_add: Add a photo, a file or a note first.
+  error_pwa_upload_expired: Some files were not uploaded. Add them again.
+  error_pwa_upload_failed: "The upload failed (%{reason})."
+  label_pwa_settings_short_name: Name on the home screen
+  text_pwa_settings_short_name: "Blank uses the application title (shortened to 12 letters)."
+  label_pwa_settings_photo_max_edge: Largest photo size (pixels)
+  text_pwa_settings_photo_max_edge: "Photos are shrunk on the phone so their longest side is no bigger than this before they upload."
+  label_pwa_settings_photo_quality: Photo quality (%)

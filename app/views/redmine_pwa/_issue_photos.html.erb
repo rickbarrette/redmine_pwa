@@ -1,0 +1,27 @@
+<% if issue.attachments_addable? %>
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'pwa_upload', plugin: :redmine_pwa %>
+<% end %>
+<hr />
+<%= tag.div class: 'pwa-uploader pwa-issue-uploader', data: RedminePwa.uploader_data(self, issue.id) do %>
+  <p><strong><%= l(:label_pwa_photos_on_issue) %></strong></p>
+  <div class="pwa-pick-buttons">
+    <button type="button" class="pwa-button" data-pwa-pick="camera"><%= sprite_icon('photo', l(:button_pwa_take_photo)) %></button>
+    <button type="button" class="pwa-button" data-pwa-pick="files"><%= sprite_icon('attachment', l(:button_pwa_add_files)) %></button>
+  </div>
+  <%# "capture" opens the camera straight away on phones; computers just pick a file %>
+  <input type="file" accept="image/*" capture="environment" data-pwa-input="camera" hidden>
+  <input type="file" multiple data-pwa-input="files" hidden>
+  <div class="pwa-pending">
+    <ul class="pwa-tray" data-pwa-tray></ul>
+    <% if issue.notes_addable? %>
+      <label class="pwa-note-label">
+        <%= l(:label_pwa_note) %>
+        <textarea rows="2" data-pwa-note></textarea>
+      </label>
+    <% end %>
+    <div data-pwa-status role="status" aria-live="polite"></div>
+    <button type="button" class="pwa-button pwa-submit" data-pwa-submit><%= l(:button_pwa_attach, id: issue.id) %></button>
+  </div>
+<% end %>
+<% end %>

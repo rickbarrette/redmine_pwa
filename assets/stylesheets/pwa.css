@@ -1,0 +1,180 @@
+/* Redmine PWA. Colours come from Redmine's --oc-* variables, so redmine_dark_mode recolours them. */
+
+/* ---- Installed app: back button in the header ---- */
+.pwa-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  float: inline-start;
+  inline-size: 36px;
+  block-size: 36px;
+  margin-inline-end: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--oc-white, #fff);
+  cursor: pointer;
+}
+.pwa-back:hover,
+.pwa-back:focus-visible { background: rgba(255, 255, 255, .15); }
+
+@media screen and (max-width: 899px) {
+  .pwa-back {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    z-index: 11;
+    inline-size: 44px;
+    block-size: 64px;
+    margin: 0;
+    border-radius: 0;
+  }
+  /* make room for it before the project name */
+  html.pwa-standalone #header .pwa-back ~ #quick-search #project-jump.drdn {
+    inset-inline-start: 44px;
+    inline-size: calc(100% - 44px);
+    padding-inline-start: 8px;
+  }
+}
+
+/* ---- Install app (phone menu) ---- */
+.pwa-install-flyout { margin-block-start: 0; }
+
+/* ---- Take photo / Add files ---- */
+.pwa-pick-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
+.pwa-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-block-size: 36px;
+  padding: 6px 14px;
+  border: 1px solid var(--oc-gray-4, #ced4da);
+  border-radius: 6px;
+  background: var(--oc-gray-0, #f8f9fa);
+  color: var(--oc-gray-9, #212529);
+  font: inherit;
+  cursor: pointer;
+}
+.pwa-button:hover:not(:disabled) { background: var(--oc-gray-1, #f1f3f5); }
+.pwa-button:disabled { opacity: .55; cursor: default; }
+.pwa-submit {
+  border-color: var(--oc-blue-7, #1c7ed6);
+  background: var(--oc-blue-7, #1c7ed6);
+  color: #fff;
+  font-weight: bold;
+}
+.pwa-submit:hover:not(:disabled) { background: var(--oc-blue-8, #1971c2); }
+
+.pwa-tray {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 8px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+.pwa-tray:empty { display: none; }
+.pwa-tray-item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--oc-gray-3, #dee2e6);
+  border-radius: 6px;
+  background: var(--oc-gray-1, #f1f3f5);
+}
+.pwa-tray-item img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+.pwa-tray-name {
+  display: block;
+  padding: 26px 6px 6px;
+  font-size: .85em;
+  word-break: break-all;
+  overflow: hidden;
+  max-block-size: 100%;
+}
+.pwa-tray-remove {
+  position: absolute;
+  inset-block-start: 3px;
+  inset-inline-end: 3px;
+  inline-size: 26px;
+  block-size: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .6);
+  color: #fff;
+  font-size: 18px;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.pwa-note-label { display: block; margin: 8px 0; }
+.pwa-note-label textarea { display: block; inline-size: 100%; box-sizing: border-box; margin-block-start: 4px; }
+.pwa-progress { margin: 8px 0; color: var(--oc-gray-7, #495057); }
+.pwa-uploader .flash.error ul { margin: 0; padding-inline-start: 1.2em; }
+
+/* On the issue page, the note and button only appear once something is picked */
+.pwa-issue-uploader .pwa-pending { display: none; }
+.pwa-issue-uploader.pwa-has-files .pwa-pending { display: block; }
+
+/* ---- Add to an issue (shared from another app) ---- */
+.pwa-share .pwa-nothing { color: var(--oc-gray-6, #868e96); margin: 4px 0; }
+.pwa-share.pwa-has-content .pwa-nothing { display: none; }
+.pwa-search-label { display: block; margin: 12px 0; font-weight: bold; }
+.pwa-search {
+  display: block;
+  inline-size: 100%;
+  box-sizing: border-box;
+  margin-block-start: 4px;
+  padding: 8px;
+  font-size: 16px; /* 16px keeps iPhones from zooming in */
+  font-weight: normal;
+}
+.pwa-picker h3 { margin: 16px 0 4px; }
+.pwa-issue-list { margin: 0; padding: 0; list-style: none; }
+.pwa-issue-list li { border-block-end: 1px solid var(--oc-gray-2, #e9ecef); }
+.pwa-issue-list label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  padding: 10px 6px;
+  cursor: pointer;
+}
+.pwa-issue-list input { grid-row: span 2; align-self: center; margin: 0; }
+.pwa-issue-list label:has(input:checked) { background: var(--oc-blue-0, #e7f5ff); }
+.pwa-issue-title { font-weight: bold; }
+.pwa-issue-meta { color: var(--oc-gray-6, #868e96); font-size: .9em; }
+.pwa-no-results { padding: 10px 6px; color: var(--oc-gray-6, #868e96); }
+
+.pwa-share-footer {
+  position: sticky;
+  inset-block-end: 0;
+  margin-block-start: 16px;
+  padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+  background: var(--oc-white, #fff);
+  border-block-start: 1px solid var(--oc-gray-3, #dee2e6);
+}
+.pwa-share-footer .pwa-submit { inline-size: 100%; justify-content: center; min-block-size: 44px; }
+
+/* ---- iPhone install steps ---- */
+.pwa-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, .45);
+}
+.pwa-dialog {
+  max-inline-size: 26rem;
+  inline-size: 100%;
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--oc-white, #fff);
+  color: var(--oc-gray-9, #212529);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .3);
+}
+.pwa-dialog h3 { margin-block-start: 0; }
+.pwa-dialog .pwa-button { inline-size: 100%; justify-content: center; }

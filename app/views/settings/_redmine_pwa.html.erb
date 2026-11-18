@@ -1,0 +1,16 @@
+<% values = RedminePwa::DEFAULTS.merge(@settings.to_h) %>
+<p>
+  <%= label_tag 'settings_short_name', l(:label_pwa_settings_short_name) %>
+  <%= text_field_tag 'settings[short_name]', values['short_name'], id: 'settings_short_name', size: 20, maxlength: 30,
+                     placeholder: RedminePwa.app_name.truncate(12, omission: '') %>
+  <em class="info"><%= l(:text_pwa_settings_short_name) %></em>
+</p>
+<p>
+  <%= label_tag 'settings_photo_max_edge', l(:label_pwa_settings_photo_max_edge) %>
+  <%= number_field_tag 'settings[photo_max_edge]', values['photo_max_edge'], id: 'settings_photo_max_edge', min: 640, max: 8192, step: 1 %>
+  <em class="info"><%= l(:text_pwa_settings_photo_max_edge) %></em>
+</p>
+<p>
+  <%= label_tag 'settings_photo_quality', l(:label_pwa_settings_photo_quality) %>
+  <%= number_field_tag 'settings[photo_quality]', values['photo_quality'], id: 'settings_photo_quality', min: 40, max: 100, step: 1 %>
+</p>

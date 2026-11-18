@@ -1,0 +1,55 @@
+// Redmine PWA service worker.
+// - Makes Redmine installable and shows the offline page when the server can't be reached.
+// - Catches files and text shared from another app (Android's share menu), keeps them in the browser and opens
+//   the "Add to an issue" page, which picks them up from SHARED_CACHE.
+// Redmine's pages are never cached: they hold one person's data, and people sign in as someone else
+// (redmine_impersonate) or share a phone.
+const VERSION = <%= raw RedminePwa.version.to_s.to_json %>
+const CACHE = `redmine-pwa-${VERSION}`
+const SHARED_CACHE = "redmine-pwa-shared"
+const OFFLINE = <%= raw pwa_offline_path.to_json %>
+const SHARE = <%= raw pwa_share_path.to_json %>
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.add(OFFLINE)).then(() => self.skipWaiting()))
+})
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k.startsWith("redmine-pwa-") && k !== CACHE && k !== SHARED_CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+  )
+})
+
+self.addEventListener("fetch", (event) => {
+  const request = event.request
+  const url = new URL(request.url)
+  if (url.origin !== self.location.origin) return
+
+  if (request.method === "POST" && url.pathname === SHARE) {
+    event.respondWith(receiveShare(request))
+  } else if (request.method === "GET" && request.mode === "navigate") {
+    event.respondWith(fetch(request).catch(() => caches.match(OFFLINE)))
+  }
+})
+
+// Keeps what was shared (replacing anything shared earlier) and opens the page to pick the issue
+async function receiveShare(request) {
+  try {
+    const form = await request.formData()
+    await caches.delete(SHARED_CACHE)
+    const cache = await caches.open(SHARED_CACHE)
+    const files = form.getAll("files").filter((f) => f instanceof File && f.size > 0)
+    await Promise.all(files.map((file, i) => cache.put(`${SHARE}/file/${i}`, new Response(file, {
+      headers: { "Content-Type": file.type || "application/octet-stream", "X-Filename": encodeURIComponent(file.name || `file-${i + 1}`) }
+    }))))
+    const text = [ "title", "text", "url" ].map((k) => (form.get(k) || "").toString().trim()).filter(Boolean)
+    // A shared link often repeats in the text: keep it once
+    const unique = text.filter((t, i) => !text.some((other, j) => j !== i && other.includes(t) && (other !== t || j < i)))
+    if (unique.length) await cache.put(`${SHARE}/text`, new Response(unique.join("\n")))
+    return Response.redirect(`${SHARE}?shared=1`, 303)
+  } catch (e) {
+    return Response.redirect(`${SHARE}?missed=1`, 303)
+  }
+}
