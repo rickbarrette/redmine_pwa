@@ -49,9 +49,9 @@ class PwaController < ApplicationController
       theme_color: RedminePwa::THEME_COLOR,
       background_color: '#ffffff',
       icons: [
-        icon('icon-192.png', '192x192', 'any'),
-        icon('icon-512.png', '512x512', 'any'),
-        icon('icon-maskable-512.png', '512x512', 'maskable')
+        icon('any-192', '192x192', 'any'),
+        icon('any-512', '512x512', 'any'),
+        icon('maskable-512', '512x512', 'maskable')
       ],
       shortcuts: shortcuts,
       # Android only (iPhones can't add web apps to the share menu): files and text shared from other apps
@@ -64,8 +64,8 @@ class PwaController < ApplicationController
     }
   end
 
-  def icon(file, sizes, purpose)
-    { src: helpers.image_path("plugin_assets/redmine_pwa/#{file}"), sizes: sizes, type: 'image/png', purpose: purpose }
+  def icon(variant, sizes, purpose)
+    { src: RedminePwa::Icon.url(helpers, variant), sizes: sizes, type: 'image/png', purpose: purpose }
   end
 
   # Long-press the app icon: the pages used most
@@ -76,7 +76,7 @@ class PwaController < ApplicationController
       [l(:label_calendar), url_for(controller: 'calendars', action: 'show', only_path: true)],
       [l(:button_log_time), new_time_entry_path]
     ]
-    small = helpers.image_path('plugin_assets/redmine_pwa/icon-192.png')
+    small = RedminePwa::Icon.url(helpers, 'any-192')
     list.map { |name, url| { name: name, url: url, icons: [{ src: small, sizes: '192x192' }] } }
   end
 end

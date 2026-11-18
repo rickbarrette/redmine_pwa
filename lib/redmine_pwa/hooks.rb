@@ -31,7 +31,7 @@ module RedminePwa
         tag.meta(name: 'apple-mobile-web-app-capable', content: 'yes'),
         tag.meta(name: 'apple-mobile-web-app-title', content: RedminePwa.short_name),
         tag.meta(name: 'apple-mobile-web-app-status-bar-style', content: 'default'),
-        tag.link(rel: 'apple-touch-icon', href: image_path('plugin_assets/redmine_pwa/apple-touch-icon.png')),
+        tag.link(rel: 'apple-touch-icon', href: RedminePwa::Icon.url(self, 'apple-180')),
         javascript_tag("window.RedminePwa = #{config.to_json};"),
         stylesheet_link_tag('pwa', plugin: :redmine_pwa),
         javascript_include_tag('pwa', plugin: :redmine_pwa)

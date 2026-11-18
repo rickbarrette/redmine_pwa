@@ -14,6 +14,12 @@ RedmineApp::Application.routes.draw do
   get 'service-worker.js', to: 'pwa#service_worker', as: :pwa_service_worker, format: false
   get 'pwa/offline', to: 'pwa#offline', as: :pwa_offline
 
+  # The app icon uploaded in the plugin's settings, in each size phones need
+  get 'pwa/icons/:variant.png', to: 'pwa_icons#show', as: :pwa_icon, format: false,
+                                constraints: { variant: /any-192|any-512|maskable-512|apple-180/ }
+  post 'pwa/icon', to: 'pwa_icons#create', as: :pwa_icon_upload
+  delete 'pwa/icon', to: 'pwa_icons#destroy'
+
   # Files shared from another app land here (the service worker catches the POST and keeps the files)
   get 'pwa/share', to: 'pwa_share#show', as: :pwa_share
   post 'pwa/share', to: 'pwa_share#receive'

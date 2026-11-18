@@ -37,3 +37,14 @@ en:
   label_pwa_settings_photo_max_edge: Largest photo size (pixels)
   text_pwa_settings_photo_max_edge: "Photos are shrunk on the phone so their longest side is no bigger than this before they upload."
   label_pwa_settings_photo_quality: Photo quality (%)
+  label_pwa_icon: App icon
+  text_pwa_icon: "A square PNG or JPEG, ideally 512×512 or larger (at least %{size}×%{size}). Keep what matters near the middle: Android crops icons to a circle. Saved straight away; phones that already installed the app pick it up within a day or so."
+  label_pwa_icon_background: Icon background
+  text_pwa_icon_background: "Fills around the icon where Android crops it to a circle, and behind see-through parts on iPhone. Click Apply to save."
+  button_pwa_icon_remove: Use the default icon
+  text_pwa_icon_confirm_remove: Go back to the default icon?
+  label_pwa_icon_uploading: Uploading…
+  error_pwa_icon_not_image: "That file isn't a picture that can be used (PNG, JPEG, WebP or GIF)."
+  error_pwa_icon_too_small: "The icon must be at least %{size}×%{size} pixels."
+  error_pwa_icon_too_big: The icon file is too big (10 MB at most).
+  error_pwa_icon_no_convert: "ImageMagick isn't installed on the server, so icons can't be resized."

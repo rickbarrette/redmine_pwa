@@ -178,3 +178,33 @@
 }
 .pwa-dialog h3 { margin-block-start: 0; }
 .pwa-dialog .pwa-button { inline-size: 100%; justify-content: center; }
+
+/* ---- Settings: app icon ---- */
+.pwa-icon-previews { display: inline-flex; gap: 20px; vertical-align: top; margin-block-end: 8px; }
+.pwa-icon-preview { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; }
+.pwa-icon-preview small { color: var(--oc-gray-6, #868e96); }
+.pwa-icon-android,
+.pwa-icon-iphone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 72px;
+  block-size: 72px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
+.pwa-icon-android { border-radius: 50%; }
+.pwa-icon-iphone { border-radius: 16px; }
+.pwa-icon-android img,
+.pwa-icon-iphone img { inline-size: 100%; block-size: 100%; display: block; }
+/* An uploaded icon: shown on the chosen background, inside the circle's safe area on Android */
+.pwa-icon-custom .pwa-icon-android,
+.pwa-icon-custom .pwa-icon-iphone { background: var(--pwa-icon-background, #fff); }
+.pwa-icon-custom .pwa-icon-android img { inline-size: 80%; block-size: 80%; object-fit: contain; }
+.pwa-icon-custom .pwa-icon-iphone img { object-fit: contain; }
+.pwa-icon-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.pwa-icon-remove,
+.pwa-icon-background { display: none; }
+.pwa-icon-custom .pwa-icon-remove { display: inline-block; }
+.pwa-icon-custom .pwa-icon-background { display: block; }
+.pwa-icon-status.flash { display: block; margin: 6px 0; }

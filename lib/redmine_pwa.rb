@@ -15,7 +15,11 @@ module RedminePwa
     # Photos are shrunk on the phone so their longest side is at most this many pixels...
     'photo_max_edge' => '2048',
     # ...and saved as JPEG at this quality (percent)
-    'photo_quality' => '82'
+    'photo_quality' => '82',
+    # The uploaded app icon's version (blank: the plugin's own icon), and the colour around it where phones crop
+    # icons or don't allow transparency
+    'icon_version' => '',
+    'icon_background' => '#ffffff'
   }.freeze
 
   # The header colour on phones, used until the page's script reads the real one (themes and dark mode change it)
@@ -27,6 +31,11 @@ module RedminePwa
 
   def self.settings
     DEFAULTS.merge((Setting.plugin_redmine_pwa || {}).to_h.compact_blank)
+  end
+
+  # Changes some settings, keeping the rest
+  def self.update_settings(values)
+    Setting.plugin_redmine_pwa = (Setting.plugin_redmine_pwa || {}).to_h.merge(values)
   end
 
   def self.version

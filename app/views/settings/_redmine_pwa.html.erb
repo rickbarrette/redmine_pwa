@@ -14,3 +14,38 @@
   <%= label_tag 'settings_photo_quality', l(:label_pwa_settings_photo_quality) %>
   <%= number_field_tag 'settings[photo_quality]', values['photo_quality'], id: 'settings_photo_quality', min: 40, max: 100, step: 1 %>
 </p>
+
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'pwa_settings', plugin: :redmine_pwa %>
+<% end %>
+<% custom = RedminePwa::Icon.custom? %>
+<%= tag.div class: ['pwa-icon-setting', ('pwa-icon-custom' if custom)],
+            data: { upload_url: pwa_icon_upload_path, any: RedminePwa::Icon.url(self, 'any-192'),
+                    labels: { uploading: l(:label_pwa_icon_uploading), confirm_remove: l(:text_pwa_icon_confirm_remove),
+                              failed: l(:error_pwa_upload_failed, reason: '%{reason}') }.to_json } do %>
+  <p>
+    <label><%= l(:label_pwa_icon) %></label>
+    <span class="pwa-icon-previews">
+      <span class="pwa-icon-preview">
+        <span class="pwa-icon-android"><img alt="" src="<%= RedminePwa::Icon.url(self, custom ? 'any-192' : 'maskable-512') %>"></span>
+        <small>Android</small>
+      </span>
+      <span class="pwa-icon-preview">
+        <span class="pwa-icon-iphone"><img alt="" src="<%= RedminePwa::Icon.url(self, custom ? 'any-192' : 'apple-180') %>"></span>
+        <small>iPhone</small>
+      </span>
+    </span>
+    <span class="pwa-icon-actions">
+      <input type="file" class="pwa-icon-file" accept="image/png,image/jpeg,image/webp,image/gif">
+      <button type="button" class="pwa-icon-remove"><%= l(:button_pwa_icon_remove) %></button>
+    </span>
+    <span class="pwa-icon-status" role="status" aria-live="polite"></span>
+    <%= hidden_field_tag 'settings[icon_version]', values['icon_version'], class: 'pwa-icon-version', id: nil %>
+    <em class="info"><%= l(:text_pwa_icon, size: RedminePwa::Icon::MIN_SIZE) %></em>
+  </p>
+  <p class="pwa-icon-background">
+    <%= label_tag 'settings_icon_background', l(:label_pwa_icon_background) %>
+    <%= color_field_tag 'settings[icon_background]', RedminePwa::Icon.background, id: 'settings_icon_background' %>
+    <em class="info"><%= l(:text_pwa_icon_background) %></em>
+  </p>
+<% end %>
